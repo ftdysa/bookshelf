@@ -1,0 +1,9 @@
+env: dev
+
+doctrine:
+  connection:
+    driver: pdo_mysql
+    dbname: bookshelf
+    host: localhost
+    password: password
+    user: bookshelf

@@ -25,7 +25,7 @@ class DoctrineORMProvider implements ServiceProviderInterface {
         $app['doctrine.orm.entity_manager'] = function() use ($app) {
            $config = $this->createConfig($app);
 
-           return EntityManager::create($app['doctrine.connection'], $config);
+           return EntityManager::create($app['doctrine']['connection'], $config);
         };
     }
 
