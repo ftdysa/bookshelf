@@ -1,0 +1,4 @@
+name: Bookshelf Migrations
+migrations_namespace: Bookshelf\Migration
+table_name: doctrine_migration_versions
+migrations_directory: db/migrations

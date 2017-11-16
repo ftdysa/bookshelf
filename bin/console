@@ -1,0 +1,12 @@
+<?php
+
+use Bookshelf\Application;
+use Bookshelf\Console\Application as ConsoleApplication;
+
+require __DIR__.'/../vendor/autoload.php';
+
+$kernel = new Application();
+$kernel->boot();
+
+$app = new ConsoleApplication($kernel);
+$app->run();
