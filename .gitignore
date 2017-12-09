@@ -1,6 +1,7 @@
 .idea
 
 /logs
+/docker/data
 
 ###> symfony/framework-bundle ###
 .env

@@ -1,0 +1,96 @@
+FROM php:7.1-jessie
+
+# Install "PHP Extentions", "libraries", "Software's"
+RUN apt-get update && \
+    apt-get install -y \
+        curl \
+        git \
+        libcurl4-openssl-dev \
+        libedit-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libmcrypt-dev \
+        libmysqlclient-dev \
+        libpng12-dev \
+        libssl-dev \
+        libsqlite3-dev \
+        libxml2-dev \
+        nano \
+        openssh-server \
+        pkg-config \
+        postgresql-client \
+        sqlite3 \
+        vim \
+        xz-utils \
+    && apt-get clean \
+    && docker-php-ext-configure intl --enable-intl \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) \
+        bcmath \
+        curl \
+        gd \
+        intl \
+        json \
+        mbstring \
+        mcrypt \
+        pdo_mysql \
+        pdo_sqlite \
+        xml \
+        zip
+
+# Install composer and add its bin to the PATH.
+RUN curl -s http://getcomposer.org/installer | php && \
+    echo "export PATH=${PATH}:/var/www/vendor/bin" >> ~/.bashrc && \
+    mv composer.phar /usr/local/bin/composer
+
+# Add a non-root user to prevent files being created with root permissions on host machine.
+
+ARG PUID=1000
+ARG PGID=1000
+
+ENV PUID ${PUID}
+ENV PGID ${PGID}
+
+RUN groupadd -g ${PGID} bookshelf && \
+    useradd -u ${PUID} -g bookshelf -m bookshelf && \
+    apt-get update -yqq
+
+RUN apt-get update && \
+      apt-get -y install sudo
+
+RUN echo "" && \
+    echo "bookshelf ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Copy over ssh config to disable strict host key checking. This allows us to forward our SSH auth socket
+# to docker and allows us to check out code from phabricator.
+COPY ssh.config /home/bookshelf/.ssh/config
+RUN chown bookshelf:bookshelf /home/bookshelf/.ssh/config && chmod 0400 /home/bookshelf/.ssh/config
+
+# Install node
+
+USER root
+
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
+RUN apt-get install -y nodejs
+
+# Install arcanist
+USER bookshelf
+
+RUN mkdir ~/tools && \
+    cd ~/tools && \
+    git clone https://github.com/phacility/libphutil.git && \
+    git clone https://github.com/phacility/arcanist.git
+
+# add ./vendor/bin to non-root user's bashrc (needed for phpunit)
+RUN echo "" >> ~/.bashrc && \
+    echo 'export PATH="$PATH:/var/www/vendor/bin:/home/bookshelf/tools/arcanist/bin:/var/www/bin"' >> ~/.bashrc
+
+RUN . ~/.bashrc
+
+# Clean up
+USER root
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /var/www

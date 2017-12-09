@@ -1,0 +1,60 @@
+version: "3.3"
+
+services:
+  # Application data.
+  app:
+    image: tianon/true
+    volumes:
+      - ./:/var/www
+
+  # Workspace container - ssh in here to get a CLI and run commands
+  # docker-compose exec workspace bash
+  workspace:
+    build:
+      context: docker/workspace
+      dockerfile: "Dockerfile-${PHP_VERSION}"
+    tty: true
+    volumes:
+      - ./:/var/www
+      - $SSH_AUTH_SOCK:$SSH_AUTH_SOCK
+    environment:
+      - SSH_AUTH_SOCK
+
+  fpm:
+    build:
+      context: docker/fpm
+      dockerfile: "Dockerfile-${PHP_VERSION}"
+      args:
+        - FPM_PORT=${FPM_PORT}
+    depends_on:
+      - workspace
+    expose:
+      - "${FPM_PORT}"
+    volumes:
+      - ./:/var/www
+
+  nginx:
+    build:
+      context: docker/nginx
+      args:
+        - APP_UPSTREAM_NAME=fpm
+        - APP_UPSTREAM_PORT=${FPM_PORT}
+    volumes:
+      - ./logs/nginx:/var/log/nginx
+      - ./:/var/www
+    depends_on:
+      - fpm
+    ports:
+      - "${HTTP_PORT}:80"
+    links:
+      - app
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=bookshelf
+      - MYSQL_USER=bookshelf
+      - MYSQL_PASSWORD=password
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql:rw

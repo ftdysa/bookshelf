@@ -1,0 +1,58 @@
+FROM php:7.1-fpm
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN \
+  	apt-get -y update && \
+  	apt-get -y install --no-install-recommends \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libpng12-dev \
+    libgmp-dev \
+    libxml2-dev \
+    zlib1g-dev \
+    libncurses5-dev \
+    libldap2-dev \
+    libicu-dev \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    curl \
+    mysql-client \
+    git \
+    wget \
+    libsnmp-dev \
+    snmp \
+    vim
+
+# php extensions
+RUN docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd && \
+    docker-php-ext-install pdo_mysql && \
+    docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/lib && \
+    docker-php-ext-install gd && \
+    docker-php-ext-install intl && \
+    docker-php-ext-install mcrypt && \
+    ln -s /usr/include/x86_64-linux-gnu/gmp.h /usr/include/gmp.h && \
+    docker-php-ext-install gmp && \
+    docker-php-ext-install mbstring && \
+    docker-php-ext-install pcntl && \
+    docker-php-ext-install sockets
+
+# xdebug
+RUN pecl install xdebug && \
+    echo "zend_extension=/usr/local/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so" > /usr/local/etc/php/conf.d/xdebug.ini
+
+ARG FPM_PORT=9005
+
+COPY ./app.ini /usr/local/etc/php/conf.d
+COPY ./pool.conf /usr/local/etc/php-fpm.d/
+
+RUN sed -i 's/{FPM_PORT}/'"$FPM_PORT"'/g' /usr/local/etc/php-fpm.d/pool.conf
+
+RUN usermod -u 1000 www-data
+
+WORKDIR /var/www
+
+CMD ["php-fpm"]
+
+EXPOSE "${FPM_PORT}"
