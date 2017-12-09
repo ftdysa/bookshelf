@@ -1,7 +1,7 @@
-.idea/
 
-config/config.yml
-
+###> symfony/framework-bundle ###
+.env
+/public/bundles/
+/var/
 /vendor/
-/var/logs
-/var/cache
+###< symfony/framework-bundle ###
