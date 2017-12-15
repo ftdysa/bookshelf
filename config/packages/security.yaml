@@ -1,0 +1,30 @@
+security:
+    # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+      default:
+        entity:
+          class: Bookshelf\Entity\User
+          property: username
+
+    encoders:
+      Bookshelf\Entity\User:
+        algorithm: bcrypt
+        cost: 15
+
+    firewalls:
+      dev:
+        pattern: ^/(_(profiler|wdt)|css|images|js)/
+        security: false
+      main:
+        anonymous: ~
+        provider: default
+        form_login:
+          login_path: login
+          check_path: login
+        logout:
+          path:   /logout
+          target: /
+
+    access_control:
+      - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+      - { path: ^/, roles: ROLE_ADMIN }

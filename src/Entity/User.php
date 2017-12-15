@@ -4,6 +4,8 @@ namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * User.
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class User {
+class User implements AdvancedUserInterface, Serializable {
     use Timestampable;
 
     /**
@@ -176,5 +178,62 @@ class User {
      */
     public function getDateUpdated() {
         return $this->dateUpdated;
+    }
+
+
+    /*
+     * AdvancedUserInterface methods.
+     */
+
+    public function isAccountNonExpired() {
+        return true;
+    }
+
+    public function isAccountNonLocked() {
+        return true;
+    }
+
+    public function isCredentialsNonExpired() {
+        return true;
+    }
+
+    public function isEnabled() {
+        return true;
+    }
+
+    public function getRoles() {
+        return ['ROLE_USER', 'ROLE_ADMIN'];
+    }
+
+    public function getSalt() {
+        return null;
+    }
+
+    public function eraseCredentials() {}
+
+    /*
+     * Serializable
+     */
+
+    public function serialize() {
+        return serialize([
+            $this->id,
+            $this->name,
+            $this->username,
+            $this->password,
+            $this->dateCreated,
+            $this->dateUpdated,
+        ]);
+    }
+
+    public function unserialize($serialized) {
+        list(
+            $this->id,
+            $this->name,
+            $this->username,
+            $this->password,
+            $this->dateCreated,
+            $this->dateUpdated,
+        ) = unserialize($serialized);
     }
 }

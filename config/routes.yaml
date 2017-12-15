@@ -1,3 +1,13 @@
-#index:
-#    path: /
-#    defaults: { _controller: 'App\Controller\DefaultController::index' }
+index:
+    path: /
+    defaults: { _controller: 'Bookshelf\Controller\HomeController::indexAction' }
+
+login:
+  path: /login
+  defaults: { _controller: 'Bookshelf\Controller\SecurityController::loginAction' }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
