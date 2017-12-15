@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Controller\Author;
 
 use Bookshelf\Repository\AuthorRepository;
@@ -8,7 +10,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ListController extends Controller {
-
     public function handleAction(Request $request, AuthorRepository $repo, int $page): Response {
         $authors = $repo->findAuthors($page);
 

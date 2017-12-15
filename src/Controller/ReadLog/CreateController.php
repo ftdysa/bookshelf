@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Controller\ReadLog;
 
 use Bookshelf\Entity\Book;
@@ -11,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateController extends Controller {
-
     public function handleAction(Request $request): Response {
         // TODO: Turn book & author into typeahead's so that you either select from an existing record
         // or create a new one.

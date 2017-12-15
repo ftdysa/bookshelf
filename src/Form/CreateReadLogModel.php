@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Form;
 
 use Bookshelf\Entity\Author;
@@ -11,7 +13,7 @@ class CreateReadLogModel {
     private $comment;
     private $dateRead;
 
-    public function getBook(): Book {
+    public function getBook(): ?Book {
         return $this->book;
     }
 
@@ -19,7 +21,7 @@ class CreateReadLogModel {
         $this->book = $book;
     }
 
-    public function getAuthor(): Author {
+    public function getAuthor(): ?Author {
         return $this->author;
     }
 
@@ -27,7 +29,7 @@ class CreateReadLogModel {
         $this->author = $author;
     }
 
-    public function getComment(): string {
+    public function getComment(): ?string {
         return $this->comment;
     }
 
@@ -35,7 +37,7 @@ class CreateReadLogModel {
         $this->comment = $comment;
     }
 
-    public function getDateRead(): \DateTime {
+    public function getDateRead(): ?\DateTime {
         return $this->dateRead;
     }
 

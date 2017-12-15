@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
