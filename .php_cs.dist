@@ -4,5 +4,11 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         'array_syntax' => ['syntax' => 'short'],
+        'yoda_style' => false,
+        'braces' => [
+            'position_after_anonymous_constructs' => 'same',
+            'position_after_control_structures' => 'same',
+            'position_after_functions_and_oop_constructs' => 'same',
+        ],
     ])
 ;

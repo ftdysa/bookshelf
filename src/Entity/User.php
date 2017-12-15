@@ -6,18 +6,17 @@ use Bookshelf\Entity\Traits\Timestampable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * User
+ * User.
  *
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_8D93D649F85E0677", columns={"username"})})
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class User
-{
+class User {
     use Timestampable;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
@@ -60,135 +59,122 @@ class User
      */
     private $dateUpdated;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer
+     * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
      *
      * @return User
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
      * @return User
      */
-    public function setUsername($username)
-    {
+    public function setUsername($username) {
         $this->username = $username;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return $this->username;
     }
 
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
      * @return User
      */
-    public function setPassword($password)
-    {
+    public function setPassword($password) {
         $this->password = $password;
 
         return $this;
     }
 
     /**
-     * Get password
+     * Get password.
      *
      * @return string
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return $this->password;
     }
 
     /**
-     * Set dateCreated
+     * Set dateCreated.
      *
      * @param \DateTime $dateCreated
      *
      * @return User
      */
-    public function setDateCreated($dateCreated)
-    {
+    public function setDateCreated($dateCreated) {
         $this->dateCreated = $dateCreated;
 
         return $this;
     }
 
     /**
-     * Get dateCreated
+     * Get dateCreated.
      *
      * @return \DateTime
      */
-    public function getDateCreated()
-    {
+    public function getDateCreated() {
         return $this->dateCreated;
     }
 
     /**
-     * Set dateUpdated
+     * Set dateUpdated.
      *
      * @param \DateTime $dateUpdated
      *
      * @return User
      */
-    public function setDateUpdated($dateUpdated)
-    {
+    public function setDateUpdated($dateUpdated) {
         $this->dateUpdated = $dateUpdated;
 
         return $this;
     }
 
     /**
-     * Get dateUpdated
+     * Get dateUpdated.
      *
      * @return \DateTime
      */
-    public function getDateUpdated()
-    {
+    public function getDateUpdated() {
         return $this->dateUpdated;
     }
 }
-

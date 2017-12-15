@@ -2,11 +2,9 @@
 
 namespace Bookshelf\Console\Command;
 
-use Bookshelf\Application;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -44,6 +42,6 @@ class RunFixturesCommand extends Command {
             $executor->execute($loader->getFixtures(), true);
         }
 
-        $output->writeln(sprintf("<info>%d fixtures loaded.</info>", count($loader->getFixtures())));
+        $output->writeln(sprintf('<info>%d fixtures loaded.</info>', count($loader->getFixtures())));
     }
 }

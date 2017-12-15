@@ -5,13 +5,12 @@ namespace Bookshelf\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * MigrationVersions
+ * MigrationVersions.
  *
  * @ORM\Table(name="migration_versions")
  * @ORM\Entity
  */
-class MigrationVersions
-{
+class MigrationVersions {
     /**
      * @var string
      *
@@ -21,15 +20,12 @@ class MigrationVersions
      */
     private $version;
 
-
     /**
-     * Get version
+     * Get version.
      *
      * @return string
      */
-    public function getVersion()
-    {
+    public function getVersion() {
         return $this->version;
     }
 }
-

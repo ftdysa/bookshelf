@@ -2,8 +2,6 @@
 
 namespace Bookshelf\Console\Command;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\EntityGenerator;
 use Symfony\Component\Console\Command\Command;
@@ -52,7 +50,7 @@ class GenerateEntitiesCommand extends Command {
         $replace = [
             '',
             'namespace Bookshelf\\Entity;',
-            '"Bookshelf\\Entity\\'
+            '"Bookshelf\\Entity\\',
         ];
 
         foreach (scandir('src/Entity') as $file) {
