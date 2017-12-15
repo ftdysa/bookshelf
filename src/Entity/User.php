@@ -180,7 +180,6 @@ class User implements AdvancedUserInterface, Serializable {
         return $this->dateUpdated;
     }
 
-
     /*
      * AdvancedUserInterface methods.
      */
@@ -209,7 +208,8 @@ class User implements AdvancedUserInterface, Serializable {
         return null;
     }
 
-    public function eraseCredentials() {}
+    public function eraseCredentials() {
+    }
 
     /*
      * Serializable
@@ -233,7 +233,6 @@ class User implements AdvancedUserInterface, Serializable {
             $this->username,
             $this->password,
             $this->dateCreated,
-            $this->dateUpdated,
-        ) = unserialize($serialized);
+            $this->dateUpdated) = unserialize($serialized);
     }
 }

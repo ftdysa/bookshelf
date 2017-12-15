@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Book</th>
+        <th>Author(s)</th>
+        <th>Comment</th>
+        <th>Date Read</th>
+    </tr>
+    {% for log in logs %}
+        <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.book.name }}</td>
+            <td>
+                {% for author in log.book.authors %}
+                    {{ author.name }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
+            <td>{{ log.note }}</td>
+            <td>{{ log.dateRead|date('Y-m-d') }}</td>
+        </tr>
+    {% endfor %}
+</table>
+{% endblock %}

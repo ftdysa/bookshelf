@@ -55,7 +55,7 @@ class ReadLog {
     /**
      * @var Book
      *
-     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\Book")
+     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\Book", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="book_id", referencedColumnName="id")
      * })
@@ -65,7 +65,7 @@ class ReadLog {
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * })

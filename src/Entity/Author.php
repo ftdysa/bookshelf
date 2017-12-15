@@ -3,6 +3,7 @@
 namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,15 +49,15 @@ class Author {
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Bookshelf\Entity\Book", mappedBy="author")
+     * @ORM\ManyToMany(targetEntity="Bookshelf\Entity\Book", mappedBy="authors")
      */
-    private $book;
+    private $books;
 
     /**
      * Constructor.
      */
     public function __construct() {
-        $this->book = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->books = new ArrayCollection();
         $this->dateCreated = new \DateTime();
     }
 
@@ -143,7 +144,7 @@ class Author {
      * @return Author
      */
     public function addBook(Book $book) {
-        $this->book[] = $book;
+        $this->books[] = $book;
 
         return $this;
     }
@@ -154,15 +155,15 @@ class Author {
      * @param Book $book
      */
     public function removeBook(Book $book) {
-        $this->book->removeElement($book);
+        $this->books->removeElement($book);
     }
 
     /**
-     * Get book.
+     * Get books this author has written.
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBook() {
-        return $this->book;
+    public function getBooks() {
+        return $this->books;
     }
 }

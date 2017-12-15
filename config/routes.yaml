@@ -1,13 +1,55 @@
 index:
     path: /
-    defaults: { _controller: 'Bookshelf\Controller\HomeController::indexAction' }
+    defaults: { _controller: 'Bookshelf\Controller\HomeController::handleAction' }
 
 login:
   path: /login
   defaults: { _controller: 'Bookshelf\Controller\SecurityController::loginAction' }
 
 login_check:
-    path: /login_check
+  path: /login_check
 
 logout:
-    path: /logout
+  path: /logout
+
+# Books
+books:
+  path: /books
+  defaults: { _controller: 'Bookshelf\Controller\Book\ListController::handleAction', page: 1 }
+  methods: [GET]
+
+books_paginated:
+  path: /books/{page}
+  defaults: { _controller: 'Bookshelf\Controller\Book\ListController::handleAction' }
+  requirements:
+    page: '[1-9]\d*'
+  methods: [GET]
+
+book_create:
+  path: /books
+  defaults: { _controller: 'Bookshelf\Controller\Book\CreateController::handleAction' }
+  methods: [POST]
+
+# Authors
+authors:
+  path: /authors
+  defaults: { _controller: 'Bookshelf\Controller\Author\ListController::handleAction', page: 1 }
+  methods: [GET]
+
+authors_paginated:
+  path: /authors/{page}
+  defaults: { _controller: 'Bookshelf\Controller\Author\ListController::handleAction' }
+  requirements:
+    page: '[1-9]\d*'
+  methods: [GET]
+
+author_create:
+  path: /authors
+  defaults: { _controller: 'Bookshelf\Controller\Author\CreateController::handleAction' }
+  methods: [POST]
+
+# Logs
+read_log_create:
+  path: /logs
+  defaults: { _controller: 'Bookshelf\Controller\ReadLog\CreateController::handleAction' }
+  methods: [GET,POST]

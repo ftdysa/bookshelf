@@ -92,6 +92,9 @@
     "ocramius/proxy-manager": {
         "version": "2.2.0"
     },
+    "pagerfanta/pagerfanta": {
+        "version": "v1.0.5"
+    },
     "paragonie/random_compat": {
         "version": "v2.0.11"
     },
@@ -149,6 +152,9 @@
     "symfony/flex": {
         "version": "v1.0.48"
     },
+    "symfony/form": {
+        "version": "v4.0.2"
+    },
     "symfony/framework-bundle": {
         "version": "3.3",
         "recipe": {
@@ -165,6 +171,9 @@
         "version": "v4.0.1"
     },
     "symfony/inflector": {
+        "version": "v4.0.2"
+    },
+    "symfony/intl": {
         "version": "v4.0.2"
     },
     "symfony/lts": {
@@ -184,6 +193,9 @@
     },
     "symfony/orm-pack": {
         "version": "v1.0.5"
+    },
+    "symfony/polyfill-intl-icu": {
+        "version": "v1.6.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
@@ -227,6 +239,15 @@
     "symfony/stopwatch": {
         "version": "v4.0.2"
     },
+    "symfony/translation": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
+        }
+    },
     "symfony/twig-bridge": {
         "version": "v4.0.2"
     },
@@ -256,6 +277,9 @@
     },
     "twig/twig": {
         "version": "v2.4.4"
+    },
+    "white-october/pagerfanta-bundle": {
+        "version": "v1.1.1"
     },
     "zendframework/zend-code": {
         "version": "3.3.0"

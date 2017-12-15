@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date Added</th>
+        </tr>
+        {% for author in authors %}
+            <tr>
+                <td>{{ author.id }}</td>
+                <td>{{ author.name }}</td>
+                <td>{{ author.dateCreated|date('Y-m-d') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    {% if authors.haveToPaginate %}
+        <div class="navigation text-center">
+            {{ pagerfanta(authors, 'twitter_bootstrap3_translated', {routeName: 'authors_paginated'}) }}
+        </div>
+    {% endif %}
+{% endblock %}

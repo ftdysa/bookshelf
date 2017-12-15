@@ -4,6 +4,7 @@ namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -49,7 +50,7 @@ class Book {
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\User")
+     * @ORM\ManyToOne(targetEntity="Bookshelf\Entity\User", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="added_by", referencedColumnName="id")
      * })
@@ -59,7 +60,7 @@ class Book {
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Bookshelf\Entity\Author", inversedBy="book")
+     * @ORM\ManyToMany(targetEntity="Bookshelf\Entity\Author", inversedBy="books", cascade={"persist"})
      * @ORM\JoinTable(name="book_author",
      *   joinColumns={
      *     @ORM\JoinColumn(name="book_id", referencedColumnName="id")
@@ -69,13 +70,13 @@ class Book {
      *   }
      * )
      */
-    private $author;
+    private $authors;
 
     /**
      * Constructor.
      */
     public function __construct() {
-        $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->authors = new ArrayCollection();
     }
 
     /**
@@ -183,7 +184,7 @@ class Book {
      * @return Book
      */
     public function addAuthor(Author $author) {
-        $this->author[] = $author;
+        $this->authors[] = $author;
 
         return $this;
     }
@@ -194,7 +195,7 @@ class Book {
      * @param Author $author
      */
     public function removeAuthor(Author $author) {
-        $this->author->removeElement($author);
+        $this->authors->removeElement($author);
     }
 
     /**
@@ -202,7 +203,7 @@ class Book {
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getAuthor() {
-        return $this->author;
+    public function getAuthors() {
+        return $this->authors;
     }
 }
