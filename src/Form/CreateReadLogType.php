@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bookshelf\Form;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,8 +15,11 @@ class CreateReadLogType extends AbstractType {
         $builder
             ->add('book', BookType::class)
             ->add('author', AuthorType::class)
-            ->add('comment', TextType::class)
-            ->add('dateRead', DateTimeType::class);
+            ->add('comment', TextareaType::class)
+            ->add('dateRead', DateType::class, [
+                'widget' => 'choice',
+                'format' => 'yyyy-MM-dd',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver) {

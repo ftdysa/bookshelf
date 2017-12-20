@@ -1,12 +1,75 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
+    {% block stylesheets %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.1/css/bulma.min.css">
+    {% endblock %}
+</head>
+<body>
+<nav class="navbar is-transparent is-fixed-top">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <p class="title">Bookshelf</p>
+            </a>
+            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div id="navbarExampleTransparentExample" class="navbar-menu">
+                <div class="navbar-start">
+
+                </div>
+
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <p class="control">
+                            <a class="button is-primary" href="{{ path('read_log_create') }}">
+                              <span class="icon">
+                                <i class="fa fa-plus"></i>
+                              </span>
+                                <span>Add Log</span>
+                            </a>
+                        </p>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <p class="navbar-link">
+                            Account
+                        </p>
+                        <div class="navbar-dropdown is-boxed">
+                            <a class="navbar-item" href="{{ path('authors') }}">
+                                Authors
+                            </a>
+                            <a class="navbar-item" href="{{ path('books') }}">
+                                Books
+                            </a>
+                            <hr class="navbar-divider">
+                            <a class="navbar-item" href="{{ path('logout') }}">
+                                Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</nav>
+
+<section class="section">
+    <div class="container">
+        {% block crumbs %}{% endblock %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+</section>
+
+{% block javascripts %}{% endblock %}
+</body>
 </html>

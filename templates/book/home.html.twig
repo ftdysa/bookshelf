@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
+{% block crumbs %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{{ path('books') }}">Books</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
 {% block body %}
-    <table>
+    <table class="table is-fullwidth is-striped is-hoverable">
+        <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Authors</th>
             <th>Date Added</th>
         </tr>
+        </thead>
+        <tbody>
         {% for book in books %}
             <tr>
                 <td>{{ book.id }}</td>
@@ -20,6 +32,7 @@
                 <td>{{ book.dateCreated|date('Y-m-d') }}</td>
             </tr>
         {% endfor %}
+        </tbody>
     </table>
 
     {% if books.haveToPaginate %}

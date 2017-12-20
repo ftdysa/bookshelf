@@ -1,0 +1,22 @@
+{
+  "name": "bookshelf",
+  "version": "0.0.1",
+  "description": "Keep track of what you've read.",
+  "dependencies": {
+    "bulma": "^0.6.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ftdysa/bookshelf.git"
+  },
+  "author": "Fred Dysart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ftdysa/bookshelf/issues"
+  },
+  "homepage": "https://github.com/ftdysa/bookshelf#readme"
+}
