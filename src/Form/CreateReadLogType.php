@@ -17,8 +17,9 @@ class CreateReadLogType extends AbstractType {
             ->add('author', AuthorType::class)
             ->add('comment', TextareaType::class)
             ->add('dateRead', DateType::class, [
-                'widget' => 'choice',
-                'format' => 'yyyy-MM-dd',
+                'widget' => 'single_text',
+                'html5' => false,
+                'attr' => ['class' => 'bulma-calendar'],
             ]);
     }
 
