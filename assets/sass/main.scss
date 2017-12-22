@@ -28,3 +28,13 @@ $primary-invert: $pink-invert;
 
 @import "../../node_modules/bulma/bulma";
 @import '../vendor/bulma-calendar/calendar';
+@import "../../node_modules/selectize/dist/css/selectize";
+
+.selectize-control {
+  &.is-danger {
+    > .selectize-input {
+      border-color: $danger;
+    }
+  }
+}
+

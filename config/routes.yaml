@@ -43,6 +43,11 @@ authors_paginated:
     page: '[1-9]\d*'
   methods: [GET]
 
+authors_json:
+  path: /authors.json
+  defaults: { _controller: 'Bookshelf\Controller\Author\JsonController::handleAction', page: 1 }
+  methods: [GET]
+
 author_create:
   path: /authors
   defaults: { _controller: 'Bookshelf\Controller\Author\CreateController::handleAction' }

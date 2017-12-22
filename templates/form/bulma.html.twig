@@ -5,7 +5,11 @@
 {%- block form_widget_simple -%}
     {% spaceless %}
         {%- if type is not defined or type not in ['file', 'hidden'] -%}
-            {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input')|trim}) -%}
+            {%- set errClass = '' -%}
+            {% if not valid %}
+                {% set errClass = 'is-danger' %}
+            {% endif %}
+            {%- set attr = attr|merge({class: (attr.class|default('') ~ ' input ' ~ errClass)|trim}) -%}
         {%- endif -%}
         {%- set size_class = '' -%}
         {%- for size in ['is-small', 'is-medium', 'is-large'] if size in form.vars.attr.class|default('') -%}
@@ -66,7 +70,11 @@
 
 {%- block textarea_widget -%}
     <div {{ block('form_widget_container_attributes') }}>
-        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' textarea')|trim}) -%}
+        {%- set errClass = '' -%}
+        {% if not valid %}
+            {% set errClass = 'is-danger' %}
+        {% endif %}
+        {%- set attr = attr|merge({class: (attr.class|default('') ~ ' textarea ' ~ errClass)|trim}) -%}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         {{- block('form_errors') -}}
     </div>

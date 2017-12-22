@@ -1,10 +1,27 @@
 {% extends 'base.html.twig' %}
-{% form_theme form 'form/bulma.html.twig' %}
 
 {% block body %}
 {{ form_start(form) }}
-{{ form_row(form.author.name, {label: "Author(s) Name"}) }}
-{{ form_row(form.book.name, {label: "Book Name"}) }}
+{{ form_errors(form) }}
+{{ form_row(form.book, {label: "Book Name"}) }}
+
+<div class="field">
+    <label class="label">Author(s) Name</label>
+    <div class="control">
+        <div class="select is-fullwidth">
+            <select
+                    name="create_read_log[authors][name][]"
+                    type="text"
+                    id="create_read_log_author_name"
+                    multiple
+                    class="{% if not form.authors.vars.valid %}is-danger{% endif  %}"
+            >
+            </select>
+        </div>
+    </div>
+    {{ form_errors(form.authors) }}
+</div>
+
 {{ form_row(form.comment) }}
 
 <div class="field">
@@ -26,5 +43,11 @@
         </a>
     </p>
 </div>
-{{ form_end(form) }}
+
+{{ form_widget(form._token) }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('build/createreadlog.js') }}"></script>
 {% endblock %}

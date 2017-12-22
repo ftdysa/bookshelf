@@ -17,7 +17,14 @@ class AuthorRepository extends ServiceEntityRepository {
         parent::__construct($registry, Author::class);
     }
 
-    public function findAuthors(int $page = 1): Pagerfanta {
+    public function findAuthors(): array {
+        return $this->createQueryBuilder('a')
+            ->select(['a'])
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAuthorsPaginated(int $page = 1): Pagerfanta {
         $qb = $this->createQueryBuilder('a')
             ->select(['a']);
 

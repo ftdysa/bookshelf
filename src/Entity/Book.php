@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Book.
@@ -31,6 +31,8 @@ class Book {
     /**
      * @var string
      *
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
     private $name;
@@ -38,6 +40,7 @@ class Book {
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="date_created", type="datetime", nullable=false)
      */
     private $dateCreated;
@@ -45,6 +48,7 @@ class Book {
     /**
      * @var \DateTime
      *
+     * @Assert\NotBlank()
      * @ORM\Column(name="date_updated", type="datetime", nullable=false)
      */
     private $dateUpdated;

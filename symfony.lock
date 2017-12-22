@@ -101,6 +101,15 @@
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
     },
+    "phpdocumentor/reflection-common": {
+        "version": "1.0.1"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "4.2.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "0.4.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -218,6 +227,9 @@
     "symfony/property-access": {
         "version": "v4.0.2"
     },
+    "symfony/property-info": {
+        "version": "v4.0.2"
+    },
     "symfony/routing": {
         "version": "3.3",
         "recipe": {
@@ -238,6 +250,12 @@
             "version": "3.3",
             "ref": "85834af1496735f28d831489d12ab1921a875e0d"
         }
+    },
+    "symfony/serializer": {
+        "version": "v4.0.2"
+    },
+    "symfony/serializer-pack": {
+        "version": "v1.0.1"
     },
     "symfony/stopwatch": {
         "version": "v4.0.2"
@@ -262,6 +280,9 @@
             "version": "3.3",
             "ref": "f75ac166398e107796ca94cc57fa1edaa06ec47f"
         }
+    },
+    "symfony/validator": {
+        "version": "v4.0.2"
     },
     "symfony/var-dumper": {
         "version": "v4.0.2"
@@ -289,6 +310,9 @@
     },
     "twig/twig": {
         "version": "v2.4.4"
+    },
+    "webmozart/assert": {
+        "version": "1.2.0"
     },
     "white-october/pagerfanta-bundle": {
         "version": "v1.1.1"

@@ -4,29 +4,42 @@ declare(strict_types=1);
 
 namespace Bookshelf\Form;
 
-use Bookshelf\Entity\Author;
-use Bookshelf\Entity\Book;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class CreateReadLogModel {
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(max=255)
+     */
     private $book;
-    private $author;
+
+    private $authors = [];
+
+    /**
+     * @Assert\NotBlank()
+     */
     private $comment;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\DateTime()
+     */
     private $dateRead;
 
-    public function getBook(): ?Book {
+    public function getBook(): ?string {
         return $this->book;
     }
 
-    public function setBook(Book $book) {
+    public function setBook(string $book) {
         $this->book = $book;
     }
 
-    public function getAuthor(): ?Author {
-        return $this->author;
+    public function getAuthors(): array {
+        return $this->authors;
     }
 
-    public function setAuthor(Author $author) {
-        $this->author = $author;
+    public function setAuthor(array $authors) {
+        $this->authors = $authors;
     }
 
     public function getComment(): ?string {
@@ -41,7 +54,7 @@ class CreateReadLogModel {
         return $this->dateRead;
     }
 
-    public function setDateRead(\DateTime $dateRead) {
+    public function setDateRead(\DateTime $dateRead = null) {
         $this->dateRead = $dateRead;
     }
 }

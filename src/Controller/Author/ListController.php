@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ListController extends Controller {
     public function handleAction(Request $request, AuthorRepository $repo, int $page): Response {
-        $authors = $repo->findAuthors($page);
+        $authors = $repo->findAuthorsPaginated($page);
 
         return $this->render('author/home.html.twig', ['authors' => $authors]);
     }

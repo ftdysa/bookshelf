@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Bookshelf\Controller\ReadLog;
 
+use Bookshelf\Entity\Author;
 use Bookshelf\Entity\Book;
 use Bookshelf\Entity\ReadLog;
 use Bookshelf\Form\CreateReadLogModel;
 use Bookshelf\Form\CreateReadLogType;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class CreateController extends Controller {
     public function handleAction(Request $request): Response {
-        // TODO: Turn book & author into typeahead's so that you either select from an existing record
-        // or create a new one.
-
         $model = new CreateReadLogModel();
         $form = $this->createForm(CreateReadLogType::class, $model);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->saveLog($form->getData());
+        if ($form->isSubmitted() && $this->isValidRequest($request, $form)) {
+            $this->saveLog($request, $form);
 
             return $this->redirectToRoute('index');
         }
@@ -32,10 +33,43 @@ class CreateController extends Controller {
         ]);
     }
 
-    private function saveLog(CreateReadLogModel $model) {
+    private function isValidRequest(Request $request, FormInterface $form) {
+        $postData = $request->request->get($form->getName());
+        $authors = isset($postData['authors']) ?? [];
+
+        if (!$authors) {
+            $form->get('authors')->addError(new FormError('You need to provide at least one author.'));
+            return false;
+        }
+
+        return $form->isValid();
+    }
+
+    private function saveLog(Request $request, FormInterface $form) {
+        /* @var $em EntityManager */
+        $em = $this->getDoctrine()->getManager();
+        /* @var $model CreateReadLogModel */
+        $model = $form->getData();
         $user = $this->getUser();
-        $book = $model->getBook();
-        $book->addAuthor($model->getAuthor());
+        $bookName = $model->getBook();
+        $book = new Book();
+        $book->setName($bookName);
+
+        // Authors gets some custom handling.
+        // Array values that are numeric indicate a selected author.
+        $authors = $request->request->get($form->getName())['authors'];
+
+        foreach ($authors['name'] as $idOrName) {
+            if (is_numeric($idOrName)) {
+                $book->addAuthor($em->getReference(Author::class, $idOrName));
+            } else {
+                $author = new Author();
+                $author->setName($idOrName);
+
+                $book->addAuthor($author);
+            }
+        }
+
         $book->setAddedBy($user);
 
         $log = new ReadLog();
@@ -44,7 +78,6 @@ class CreateController extends Controller {
         $log->setDateRead($model->getDateRead());
         $log->setUser($user);
 
-        $em = $this->getDoctrine()->getManager();
         $em->persist($log);
         $em->flush();
     }

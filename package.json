@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Keep track of what you've read.",
   "dependencies": {
-    "bulma": "^0.6.1"
+    "bulma": "^0.6.1",
+    "jquery": "^3.2.1",
+    "selectize": "^0.12.4"
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.17.0",

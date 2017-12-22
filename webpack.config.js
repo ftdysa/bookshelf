@@ -9,6 +9,7 @@ Encore
 
     // will create public/build/app.js and public/build/app.css
     .addEntry('app', ['./assets/js/main.js'])
+    .addEntry('createreadlog', './assets/js/createreadlog.js')
 
     // allow sass/scss files to be processed
     .enableSassLoader()
@@ -20,6 +21,12 @@ Encore
 
     // show OS notifications when builds finish/fail
     .enableBuildNotifications()
+
+    .autoProvidejQuery()
+    .createSharedEntry('vendor', [
+        'jquery',
+        'selectize'
+    ])
 
     // create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(!Encore.isProduction())
