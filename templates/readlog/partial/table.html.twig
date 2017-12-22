@@ -6,6 +6,7 @@
         <th>Author(s)</th>
         <th>Comment</th>
         <th>Date Read</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -20,6 +21,11 @@
             </td>
             <td>{{ log.note }}</td>
             <td>{{ log.dateRead|date('Y-m-d') }}</td>
+            <td>
+                <a class="button is-small" href="{{ path('read_log_edit', {id: log.id}) }}" title="Edit log">
+                    <span class="icon is-small"><i class="fa fa-edit"></i></span>
+                </a>
+            </td>
         </tr>
     {% endfor %}
     </tbody>

@@ -8,36 +8,56 @@ use Bookshelf\Entity\ReadLog;
 use Bookshelf\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReadLogRepository extends ServiceEntityRepository {
-    public function __construct(RegistryInterface $registry) {
+    /**
+     * The current user.
+     *
+     * @var User
+     */
+    private $user;
+
+    public function __construct(RegistryInterface $registry, TokenStorageInterface $storage) {
         parent::__construct($registry, ReadLog::class);
+
+        $this->user = $storage->getToken()->getUser();
     }
 
     /**
-     * @param User $user
-     *
-     * @return ReadLog[]
+     * @return array
      */
-    public function findLogsForUser(User $user): array {
+    public function findLogsForUser(): array {
         $qb = $this->createQueryBuilder('l')
             ->select(['l', 'b', 'a'])
             ->join('l.book', 'b')
             ->join('b.authors', 'a')
             ->where('l.user = :user')
-            ->setParameter('user', $user);
+            ->setParameter('user', $this->user);
 
         return $qb->getQuery()->getResult();
     }
 
+    public function findLog(int $id): ?ReadLog {
+        $qb = $this->createQueryBuilder('l')
+            ->select(['l', 'b', 'a'])
+            ->join('l.book', 'b')
+            ->join('b.authors', 'a')
+            ->where('l.user = :user')
+            ->andWhere('l.id = :id')
+            ->setParameter('user', $this->user)
+            ->setParameter('id', $id);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
     /**
-     * Ghetto fab search function.
+     * A terrible search function.
      *
-     * @param User $user
      * @param $term
      * @return array
      */
-    public function findLogsMatching(User $user, $term): array {
+    public function findLogsMatching($term): array {
         $qb = $this->createQueryBuilder('l');
 
         $qb
@@ -54,7 +74,7 @@ class ReadLogRepository extends ServiceEntityRepository {
                     $qb->expr()->like('s.name', ':term')
                 )
             )
-            ->setParameter('user', $user)
+            ->setParameter('user', $this->user)
             ->setParameter('term', "%$term%");
 
         return $qb->getQuery()->getResult();

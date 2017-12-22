@@ -205,6 +205,10 @@ class Book {
         $this->authors->removeElement($author);
     }
 
+    public function clearAuthors() {
+        $this->authors->clear();
+    }
+
     /**
      * Get author.
      *

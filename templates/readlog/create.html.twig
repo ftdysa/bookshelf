@@ -15,6 +15,7 @@
                     id="create_read_log_author_name"
                     multiple
                     class="{% if not form.authors.vars.valid %}is-danger{% endif  %}"
+                    data-author-ids="{{ authorIds|default('') }}"
             >
             </select>
         </div>

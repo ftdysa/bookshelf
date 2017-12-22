@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class HomeController extends Controller {
-    public function handleAction(): Response {
-        return $this->render('home.html.twig');
+    public function handleAction(ReadLogRepository $repo): Response {
+        $logs = $repo->findLogsForUser();
+
+        return $this->render('home.html.twig', ['logs' => $logs]);
     }
 }

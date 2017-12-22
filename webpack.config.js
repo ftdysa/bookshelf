@@ -10,6 +10,7 @@ Encore
 
     // will create public/build/app.js and public/build/app.css
     .addEntry('app', ['./assets/js/main.js'])
+    .addEntry('search', './assets/js/search.js')
     .addEntry('createreadlog', './assets/js/createreadlog.js')
 
     // allow sass/scss files to be processed

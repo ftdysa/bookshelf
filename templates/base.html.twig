@@ -25,37 +25,28 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <div id="bookshelf-main-menu" class="navbar-menu">
-                <div class="navbar-start">
-                    <div class="navbar-item">
-                        <div class="field has-addons">
-                            <div class="control">
-                                <input
-                                        class="input"
-                                        type="text"
-                                        placeholder="Search for a book or author"
-                                        id="search-box"
-                                        data-user-id="{{ app.user.id }}"
-                                >
-                            </div>
-                            <div class="control">
-                                <a class="button is-info">
-                                    Search
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="navbar-end">
                     <div class="navbar-item">
-                        <p class="control">
-                            <a class="button is-primary" href="{{ path('read_log_create') }}">
+                        <div class="field is-grouped">
+                            <p class="control">
+                                <a class="button is-primary" href="{{ path('read_log_create') }}">
                               <span class="icon">
                                 <i class="fa fa-plus"></i>
                               </span>
-                                <span>Add Log</span>
-                            </a>
-                        </p>
+                                    <span>Add Log</span>
+                                </a>
+                            </p>
+                            <p class="control">
+                                <a class="button is-info" href="{{ path('read_log_search') }}">
+                              <span class="icon">
+                                <i class="fa fa-search"></i>
+                              </span>
+                                    <span>Search</span>
+                                </a>
+                            </p>
+                        </div>
+
                     </div>
                     <div class="navbar-item has-dropdown is-hoverable">
                         <p class="navbar-link">
@@ -80,12 +71,29 @@
     </div>
 </nav>
 
-<section class="section">
+
+<section class="section" id="root">
     <div class="container">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="notification is-{{ label }}">
+                    <button class="delete"></button>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
         {% block crumbs %}{% endblock %}
         {% block body %}{% endblock %}
     </div>
 </section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="content has-text-centered">
+            <img src="https://www.algolia.com/static_assets/images/press/downloads/search-by-algolia.png" />
+        </div>
+    </div>
+</footer>
 
 {% block javascripts %}
 <script src="{{ asset('build/manifest.js') }}"></script>

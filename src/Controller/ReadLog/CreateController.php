@@ -10,8 +10,6 @@ use Bookshelf\Entity\ReadLog;
 use Bookshelf\Form\CreateReadLogModel;
 use Bookshelf\Form\CreateReadLogType;
 use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +21,7 @@ class CreateController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $this->isValidRequest($request, $form)) {
-            $this->saveLog($request, $form);
+            $this->createLog($request, $form);
 
             return $this->redirectToRoute('index');
         }
@@ -33,19 +31,7 @@ class CreateController extends Controller {
         ]);
     }
 
-    private function isValidRequest(Request $request, FormInterface $form) {
-        $postData = $request->request->get($form->getName());
-        $authors = isset($postData['authors']) ?? [];
-
-        if (!$authors) {
-            $form->get('authors')->addError(new FormError('You need to provide at least one author.'));
-            return false;
-        }
-
-        return $form->isValid();
-    }
-
-    private function saveLog(Request $request, FormInterface $form) {
+    protected function createLog(Request $request, FormInterface $form) {
         /* @var $em EntityManager */
         $em = $this->getDoctrine()->getManager();
         /* @var $model CreateReadLogModel */
