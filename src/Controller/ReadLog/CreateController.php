@@ -21,9 +21,10 @@ class CreateController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $this->isValidRequest($request, $form)) {
-            $this->createLog($request, $form);
+            $log = $this->createLog($request, $form);
+            $this->addFlash('success', 'Log entry saved.');
 
-            return $this->redirectToRoute('index');
+            return $this->redirectToRoute('read_log_edit', ['id' => $log->getId()]);
         }
 
         return $this->render('readlog/create.html.twig', [
@@ -31,7 +32,7 @@ class CreateController extends Controller {
         ]);
     }
 
-    protected function createLog(Request $request, FormInterface $form) {
+    protected function createLog(Request $request, FormInterface $form): ReadLog {
         /* @var $em EntityManager */
         $em = $this->getDoctrine()->getManager();
         /* @var $model CreateReadLogModel */
@@ -66,5 +67,7 @@ class CreateController extends Controller {
 
         $em->persist($log);
         $em->flush();
+
+        return $log;
     }
 }

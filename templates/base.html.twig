@@ -72,7 +72,7 @@
 </nav>
 
 
-<section class="section" id="root">
+<section class="section">
     <div class="container">
         {% for label, messages in app.flashes %}
             {% for message in messages %}
@@ -86,14 +86,6 @@
         {% block body %}{% endblock %}
     </div>
 </section>
-
-<footer class="footer">
-    <div class="container">
-        <div class="content has-text-centered">
-            <img src="https://www.algolia.com/static_assets/images/press/downloads/search-by-algolia.png" />
-        </div>
-    </div>
-</footer>
 
 {% block javascripts %}
 <script src="{{ asset('build/manifest.js') }}"></script>

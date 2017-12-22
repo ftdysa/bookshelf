@@ -15,9 +15,11 @@
             <td>{{ log.id }}</td>
             <td>{{ log.book.name }}</td>
             <td>
+                <div class="tags">
                 {% for author in log.book.authors %}
-                    {{ author.name }}{% if not loop.last %}, {% endif %}
+                    <span class="tag">{{ author.name }}</span>
                 {% endfor %}
+                </div>
             </td>
             <td>{{ log.note }}</td>
             <td>{{ log.dateRead|date('Y-m-d') }}</td>

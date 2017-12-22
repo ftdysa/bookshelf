@@ -46,17 +46,3 @@ $primary-invert: $pink-invert;
   font-style: italic;
   font-weight: bold;
 }
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-#root {
-  flex: 1 0 auto;
-}
-
-.footer {
-  padding: 1.5em;
-}
