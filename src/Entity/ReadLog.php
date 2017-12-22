@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
+use Bookshelf\Search\Searchable;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * ReadLog.
  *
  * @ORM\Table(name="read_log", indexes={@ORM\Index(name="IDX_1ED38997A76ED395", columns={"user_id"}), @ORM\Index(name="IDX_1ED3899716A2B381", columns={"book_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bookshelf\Repository\ReadLogRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class ReadLog {
+class ReadLog implements Searchable {
     use Timestampable;
 
     /**
@@ -79,7 +80,7 @@ class ReadLog {
      *
      * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -214,4 +215,25 @@ class ReadLog {
     public function getUser() {
         return $this->user;
     }
+
+    public function getIndexName(): string {
+        return 'readlog';
+    }
+
+    public function getSearchableData(): array {
+        $authors = array_map(
+            function(Author $author) { return $author->getName(); },
+            $this->book->getAuthors()->getValues()
+        );
+
+        return [
+            'book' => $this->book->getName(),
+            'authors' => $authors,
+            'user_id' => $this->getUser()->getId(),
+            'comment' => $this->getNote(),
+            'date_read' => $this->getDateRead()->format('Y-m-d'),
+        ];
+    }
+
+
 }

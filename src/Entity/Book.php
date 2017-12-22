@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
+use Bookshelf\Search\Searchable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Book.
  *
  * @ORM\Table(name="book", indexes={@ORM\Index(name="IDX_CBE5A331699B6BAF", columns={"added_by"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bookshelf\Repository\BookRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Book {
@@ -90,7 +91,7 @@ class Book {
      *
      * @return int
      */
-    public function getId() {
+    public function getId(): int {
         return $this->id;
     }
 
@@ -212,4 +213,22 @@ class Book {
     public function getAuthors() {
         return $this->authors;
     }
+
+    public function getIndexName(): string {
+        return 'book';
+    }
+
+    public function getSearchableData(): array {
+        $authors = array_map(
+            function(Author $author) { return $author->getName(); },
+            $this->getAuthors()->getValues()
+        );
+
+        return [
+            'name' => $this->getName(),
+            'authors' => $authors,
+        ];
+    }
+
+
 }

@@ -26,3 +26,12 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    AlgoliaSearch\Client:
+        arguments:
+          $applicationID: '%env(ALGOLIA_APP_ID)%'
+          $apiKey: '%env(ALGOLIA_API_KEY)%'
+
+    Bookshelf\Search\EventListener\SearchIndexerSubscriber:
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }

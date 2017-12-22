@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Author.
  *
  * @ORM\Table(name="author")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Bookshelf\Repository\AuthorRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Author {

@@ -30,6 +30,9 @@ $primary-invert: $pink-invert;
 @import '../vendor/bulma-calendar/calendar';
 @import "../../node_modules/selectize/dist/css/selectize";
 
+// Uncomment if I end up needing some styles from instantsearch.js
+//@import "../../node_modules/instantsearch.js/dist/instantsearch.css";
+
 .selectize-control {
   &.is-danger {
     > .selectize-input {
@@ -38,3 +41,8 @@ $primary-invert: $pink-invert;
   }
 }
 
+.search-result-hit {
+  color: $danger;
+  font-style: italic;
+  font-weight: bold;
+}

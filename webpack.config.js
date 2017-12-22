@@ -1,4 +1,5 @@
-var Encore = require('@symfony/webpack-encore');
+const Encore = require('@symfony/webpack-encore');
+const Dotenv = require('dotenv-webpack');
 
 Encore
 // the project directory where all compiled assets will be stored
@@ -30,6 +31,8 @@ Encore
 
     // create hashed filenames (e.g. app.abc123.css)
     .enableVersioning(!Encore.isProduction())
+
+    .addPlugin(new Dotenv())
 ;
 
 // export the final configuration
