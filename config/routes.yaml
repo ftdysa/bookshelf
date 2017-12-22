@@ -58,3 +58,8 @@ read_log_create:
   path: /logs
   defaults: { _controller: 'Bookshelf\Controller\ReadLog\CreateController::handleAction' }
   methods: [GET,POST]
+
+read_log_search:
+  path: /logs/search
+  defaults: { _controller: 'Bookshelf\Controller\ReadLog\SearchController::handleAction' }
+  methods: GET

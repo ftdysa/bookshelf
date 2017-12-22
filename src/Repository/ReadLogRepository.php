@@ -29,4 +29,34 @@ class ReadLogRepository extends ServiceEntityRepository {
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * Ghetto fab search function.
+     *
+     * @param User $user
+     * @param $term
+     * @return array
+     */
+    public function findLogsMatching(User $user, $term): array {
+        $qb = $this->createQueryBuilder('l');
+
+        $qb
+            ->select(['l', 'b', 'a'])
+            ->join('l.book', 'b')
+            // Join twice on authors. Use the "s" alias for the search so that the "a" alias
+            // will still contain every author for that book.
+            ->join('b.authors', 'a')
+            ->join('b.authors', 's')
+            ->where('l.user = :user')
+            ->andWhere($qb->expr()
+                ->orX(
+                    $qb->expr()->like('b.name', ':term'),
+                    $qb->expr()->like('s.name', ':term')
+                )
+            )
+            ->setParameter('user', $user)
+            ->setParameter('term', "%$term%");
+
+        return $qb->getQuery()->getResult();
+    }
 }

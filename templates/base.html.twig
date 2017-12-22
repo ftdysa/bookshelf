@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>Bookshelf - Keep track of what you've read.</title>
     {% block stylesheets %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{ asset('build/app.css') }}">
@@ -16,7 +16,7 @@
             <a class="navbar-item" href="/">
                 <p class="title">Bookshelf</p>
             </a>
-            <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+            <div class="navbar-burger burger" data-target="bookshelf-main-menu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -24,9 +24,28 @@
         </div>
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <div id="navbarExampleTransparentExample" class="navbar-menu">
+            <div id="bookshelf-main-menu" class="navbar-menu">
                 <div class="navbar-start">
-
+                    <div class="navbar-item">
+                        <form action="{{ path('read_log_search') }}">
+                        <div class="field has-addons">
+                            <div class="control">
+                                <input
+                                        class="input"
+                                        type="text"
+                                        placeholder="Search for a book or author"
+                                        name="term"
+                                        value="{{ app.request.get('term') }}"
+                                >
+                            </div>
+                            <div class="control">
+                                <a class="button is-info">
+                                    Search
+                                </a>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="navbar-end">
