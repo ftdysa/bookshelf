@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="author")
  * @ORM\Entity(repositoryClass="Bookshelf\Repository\AuthorRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Author {
     use Timestampable;

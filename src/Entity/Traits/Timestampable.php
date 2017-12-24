@@ -14,7 +14,7 @@ trait Timestampable {
     public function updatedTimestamps() {
         $this->setDateUpdated(new \DateTime());
 
-        if (null == $this->getDateCreated()) {
+        if ($this->getDateCreated() === null) {
             $this->setDateCreated(new \DateTime());
         }
     }

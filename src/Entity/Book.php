@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Table(name="book", indexes={@ORM\Index(name="IDX_CBE5A331699B6BAF", columns={"added_by"})})
  * @ORM\Entity(repositoryClass="Bookshelf\Repository\BookRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class Book {
     use Timestampable;

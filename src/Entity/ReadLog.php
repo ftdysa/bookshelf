@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="read_log", indexes={@ORM\Index(name="IDX_1ED38997A76ED395", columns={"user_id"}), @ORM\Index(name="IDX_1ED3899716A2B381", columns={"book_id"})})
  * @ORM\Entity(repositoryClass="Bookshelf\Repository\ReadLogRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\HasLifecycleCallbacks()
  */
 class ReadLog implements Searchable {
     use Timestampable;

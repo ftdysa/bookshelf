@@ -65,8 +65,12 @@ class EditController extends Controller {
         /* @var $model CreateReadLogModel */
         $model = $form->getData();
         $book->setName($model->getBook());
+        $log->setBook($book);
         $log->setNote($model->getComment());
         $log->setDateRead($model->getDateRead());
+        // Force an update so that the log will get indexed on book/author changes.
+        // Probably a better way to do this.
+        $log->setDateUpdated(new \DateTime());
 
         $em->persist($log);
         $em->flush();
