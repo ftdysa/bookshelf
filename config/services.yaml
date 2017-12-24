@@ -32,6 +32,10 @@ services:
           $applicationID: '%env(ALGOLIA_APP_ID)%'
           $apiKey: '%env(ALGOLIA_API_KEY)%'
 
+    Bookshelf\Search\IndexManager:
+      arguments:
+        $prefix: '%env(APP_ENV)%'
+
     Bookshelf\Search\EventListener\SearchIndexerSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }

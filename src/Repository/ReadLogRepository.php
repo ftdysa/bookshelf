@@ -18,10 +18,14 @@ class ReadLogRepository extends ServiceEntityRepository {
      */
     private $user;
 
-    public function __construct(RegistryInterface $registry, TokenStorageInterface $storage) {
+    public function __construct(RegistryInterface $registry, TokenStorageInterface $storage = null) {
         parent::__construct($registry, ReadLog::class);
 
-        $this->user = $storage->getToken()->getUser();
+        // We don't have a token when this is run from the CLI. This is currently OK because
+        // we are only using the repo to fetch every object, regardless of who it belongs to.
+        if ($storage && $storage->getToken()) {
+            $this->user = $storage->getToken()->getUser();
+        }
     }
 
     /**

@@ -12,11 +12,13 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class IndexManager {
     private $client;
+    private $prefix;
 
-    public function __construct(Client $client) {
+    public function __construct(Client $client, string $prefix) {
         Version::addSuffixUserAgentSegment('Bookshelf', '0.0.1');
 
         $this->client = $client;
+        $this->prefix = $prefix;
     }
 
     public function index($objects) {
@@ -56,7 +58,7 @@ class IndexManager {
             $data = [];
 
             foreach ($chunk as $obj) {
-                $indexName = $obj->getIndexName();
+                $indexName = $this->getFullIndexName($obj);
                 if (!isset($data[$indexName])) {
                     $data[$indexName] = [];
                 }
@@ -78,7 +80,7 @@ class IndexManager {
         foreach (array_chunk($objects, 500) as $chunk) {
             $data = [];
             foreach ($chunk as $obj) {
-                $indexName = $obj->getIndexName();
+                $indexName = $this->getFullIndexName($obj);
                 if (!isset($data[$indexName])) {
                     $data[$indexName] = [];
                 }
@@ -92,5 +94,9 @@ class IndexManager {
                     ->deleteObjects($objects);
             }
         }
+    }
+
+    private function getFullIndexName(Searchable $obj) {
+        return $this->prefix.'_'.$obj->getIndexName();
     }
 }
