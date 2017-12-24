@@ -12,5 +12,7 @@ return PhpCsFixer\Config::create()
             'position_after_functions_and_oop_constructs' => 'same',
         ],
         'declare_strict_types' => true,
+        'elseif' => false,
+        'no_superfluous_elseif' => false,
     ])
 ;

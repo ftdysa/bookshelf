@@ -1,7 +1,7 @@
 'use strict';
 
 import instantsearch from "instantsearch.js";
-import {hits, searchBox} from "instantsearch.js/es/widgets/index";
+import {hits, searchBox, pagination} from "instantsearch.js/es/widgets/index";
 
 document.addEventListener('DOMContentLoaded', function () {
     const box = document.getElementById('search-box');
@@ -60,6 +60,20 @@ document.addEventListener('DOMContentLoaded', function () {
             placeholder: 'Search for products',
             magnifier: false,
             reset: false,
+        })
+    );
+
+    search.addWidget(
+        pagination({
+            container: '#pagination',
+            maxPages: 20,
+            // default is to scroll to 'body', here we disable this behavior
+            scrollTo: false,
+            showFirstLast: false,
+            cssClasses: {
+                root: 'pagination-list',
+                link: 'pagination-link',
+            }
         })
     );
 

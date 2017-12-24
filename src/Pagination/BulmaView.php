@@ -9,9 +9,6 @@ use Pagerfanta\View\Template\TemplateInterface;
 use Pagerfanta\View\Template\DefaultTemplate;
 use Pagerfanta\View\ViewInterface;
 
-/**
- * @author Pablo Díez <pablodip@gmail.com>
- */
 class BulmaView implements ViewInterface {
     private $template;
 

@@ -22,8 +22,10 @@ class ChangePasswordController extends Controller {
             $this->addFlash('success', 'Your password has been updated!');
 
             return $this->redirect($this->generateUrl('index'));
-        } elseif ($form->isSubmitted() && !$form->isValid()) {
-            $this->addFlash('danger', 'There was an problem with your submission!');
+        } else {
+            if ($form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('danger', 'There was an problem with your submission!');
+            }
         }
 
         return $this->render('user/change_password.html.twig', [

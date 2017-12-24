@@ -7,7 +7,6 @@ namespace Bookshelf\Pagination;
 use Pagerfanta\View\Template\Template;
 
 class BulmaTemplate extends Template {
-
     public function container() {
         return '<nav class="pagination" role="navigation" aria-label="pagination">%prev% %next%<ul class="pagination-list">%pages%</ul></nav>';
     }
