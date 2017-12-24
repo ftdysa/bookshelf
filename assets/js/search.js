@@ -4,11 +4,14 @@ import instantsearch from "instantsearch.js";
 import {hits, searchBox} from "instantsearch.js/es/widgets/index";
 
 document.addEventListener('DOMContentLoaded', function () {
-    const userId = document.getElementById('search-box').dataset.userId;
+    const box = document.getElementById('search-box');
+    const userId = box.dataset.userId;
+    const env = box.dataset.env;
+    const index = env + '_readlog';
     const search = instantsearch({
         appId: process.env.ALGOLIA_APP_ID,
         apiKey: process.env.ALGOLIA_API_KEY,
-        indexName: 'readlog',
+        indexName: index,
         urlSync: true,
         searchParameters: {
             numericFilters: ["user_id="+userId]
