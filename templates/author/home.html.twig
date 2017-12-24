@@ -16,6 +16,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Date Added</th>
+            <th>Books</th>
         </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{ author.id }}</td>
                 <td>{{ author.name }}</td>
                 <td>{{ author.dateCreated|date('Y-m-d') }}</td>
+                <td><a href="{{ path('author', {id: author.id}) }}"><i class="fa fa-book"></i></a></td>
             </tr>
         {% endfor %}
         </tbody>

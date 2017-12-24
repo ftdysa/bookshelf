@@ -10,32 +10,5 @@
 {% endblock %}
 
 {% block body %}
-    <table class="table is-fullwidth is-striped is-hoverable">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Authors</th>
-            <th>Date Added</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for book in books %}
-            <tr>
-                <td>{{ book.id }}</td>
-                <td>{{ book.name }}</td>
-                <td>
-                    {% for author in book.authors %}
-                        {{ author.name }}{% if not loop.last %}, {% endif %}
-                    {% endfor %}
-                </td>
-                <td>{{ book.dateCreated|date('Y-m-d') }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    {% if books.haveToPaginate %}
-        {{ pagerfanta(books, 'bulma_template', {routeName: 'books_paginated'}) }}
-    {% endif %}
+    {% include 'book/partial/table.html.twig' %}
 {% endblock %}

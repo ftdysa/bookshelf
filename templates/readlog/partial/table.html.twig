@@ -17,7 +17,7 @@
             <td>
                 <div class="tags">
                 {% for author in log.book.authors %}
-                    <span class="tag">{{ author.name }}</span>
+                    <a href="{{ path('author', {id: author.id}) }}" class="tag">{{ author.name }}</a>
                 {% endfor %}
                 </div>
             </td>

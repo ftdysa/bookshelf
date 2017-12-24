@@ -40,6 +40,13 @@ authors:
   defaults: { _controller: 'Bookshelf\Controller\Author\ListController::handleAction', page: 1 }
   methods: [GET]
 
+author:
+  path: /author/{id}
+  defaults: { _controller: 'Bookshelf\Controller\Author\ViewController::handleAction' }
+  methods: [GET]
+  requirements:
+    id: '[1-9]\d*'
+
 authors_paginated:
   path: /authors/{page}
   defaults: { _controller: 'Bookshelf\Controller\Author\ListController::handleAction' }

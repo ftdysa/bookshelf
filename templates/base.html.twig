@@ -70,7 +70,7 @@
     </div>
 </nav>
 
-{% if logs is empty %}
+{% if logs is defined and logs is empty %}
 <section class="hero is-medium is-primary is-bold">
     <div class="hero-body">
         <div class="container">

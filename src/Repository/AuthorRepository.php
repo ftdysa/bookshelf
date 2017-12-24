@@ -24,6 +24,16 @@ class AuthorRepository extends ServiceEntityRepository {
             ->getResult();
     }
 
+    public function findAuthor($id): ?Author {
+        return $this->createQueryBuilder('a')
+            ->select(['a', 'b'])
+            ->leftJoin('a.books', 'b')
+            ->where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function findAuthorsPaginated(int $page = 1): Pagerfanta {
         $qb = $this->createQueryBuilder('a')
             ->select(['a']);

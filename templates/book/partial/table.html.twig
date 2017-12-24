@@ -1,0 +1,30 @@
+<table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Authors</th>
+        <th>Date Added</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+        <tr>
+            <td>{{ book.id }}</td>
+            <td>{{ book.name }}</td>
+            <td>
+                <div class="tags">
+                {% for author in book.authors %}
+                    <a href="{{ path('author', {id: author.id}) }}" class="tag">{{ author.name }}</a>
+                {% endfor %}
+                </div>
+            </td>
+            <td>{{ book.dateCreated|date('Y-m-d') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% if books.haveToPaginate is defined and books.haveToPaginate %}
+    {{ pagerfanta(books, 'bulma_template', {routeName: 'books_paginated'}) }}
+{% endif %}

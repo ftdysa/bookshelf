@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block crumbs %}
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="{{ path('authors') }}">Authors</a></li>
+            <li class="is-active"><a>{{ author.name }}</a></li>
+        </ul>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    <h1 class="title">Books</h1>
+    {% include 'book/partial/table.html.twig' with {books: author.books} %}
+{% endblock %}
