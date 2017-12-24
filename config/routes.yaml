@@ -12,6 +12,10 @@ login_check:
 logout:
   path: /logout
 
+change_password:
+  path: /change_password
+  defaults: { _controller: 'Bookshelf\Controller\User\ChangePasswordController::handleAction' }
+
 # Books
 books:
   path: /books
