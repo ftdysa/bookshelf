@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         '<td>{{comment}}</td>' +
         '<td>{{date_read}}</td>' +
         // TODO: use router to generate these urls
-        '<td><a class="button" href="/logs/{{objectID}}"><span class="icon is-small"><i class="fa fa-edit"></i></span></td>' +
+        '<td><a class="button" href="/log/{{objectID}}"><span class="icon is-small"><i class="fa fa-edit"></i></span></td>' +
         '</tr>' +
         '{{/hits}}'
     '<tbody>' +

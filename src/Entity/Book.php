@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Bookshelf\Entity;
 
 use Bookshelf\Entity\Traits\Timestampable;
-use Bookshelf\Search\Searchable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -224,7 +223,9 @@ class Book {
 
     public function getSearchableData(): array {
         $authors = array_map(
-            function(Author $author) { return $author->getName(); },
+            function (Author $author) {
+                return $author->getName();
+            },
             $this->getAuthors()->getValues()
         );
 
@@ -233,6 +234,4 @@ class Book {
             'authors' => $authors,
         ];
     }
-
-
 }

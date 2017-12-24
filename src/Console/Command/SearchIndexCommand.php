@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Console\Command;
 
 use Bookshelf\Search\IndexManager;
@@ -27,7 +29,6 @@ class SearchIndexCommand extends Command {
             ->setDescription('This is a command to help with managing the Algolia search index.')
             ->addOption('index', 'i', InputOption::VALUE_OPTIONAL, 'Index objects belonging to a specific index.')
             ->addOption('id', null, InputOption::VALUE_OPTIONAL, 'Index a specific object (must use with --index)');
-
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
@@ -36,8 +37,9 @@ class SearchIndexCommand extends Command {
         $id = $input->getOption('id');
 
         if ($index) {
-            $searchableObjs = array_filter($searchableObjs, function($className) use ($index) {
+            $searchableObjs = array_filter($searchableObjs, function ($className) use ($index) {
                 $obj = new $className();
+
                 return $obj instanceof Searchable && $obj->getIndexName() === $index;
             });
         }

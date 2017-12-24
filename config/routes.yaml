@@ -1,6 +1,6 @@
 index:
-    path: /
-    defaults: { _controller: 'Bookshelf\Controller\HomeController::handleAction' }
+  path: /
+  defaults: { _controller: 'Bookshelf\Controller\HomeController::handleAction', page: 1 }
 
 login:
   path: /login
@@ -58,13 +58,20 @@ author_create:
   methods: [POST]
 
 # Logs
+read_log_paginated:
+  path: /logs/{page}
+  defaults: { _controller: 'Bookshelf\Controller\HomeController::handleAction' }
+  requirements:
+    page: '[1-9]\d*'
+  methods: [GET]
+
 read_log_create:
   path: /logs
   defaults: { _controller: 'Bookshelf\Controller\ReadLog\CreateController::handleAction' }
   methods: [GET,POST]
 
 read_log_edit:
-  path: /logs/{id}
+  path: /log/{id}
   defaults: { _controller: 'Bookshelf\Controller\ReadLog\EditController::handleAction' }
   methods: [GET,POST]
   requirements:

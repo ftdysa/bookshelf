@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Search;
 
 use AlgoliaSearch\Client;
@@ -8,7 +10,6 @@ use Bookshelf\Entity\Author;
 use Bookshelf\Entity\Book;
 use Bookshelf\Entity\ReadLog;
 use Bookshelf\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 
 class IndexManager {
     private $client;
@@ -46,7 +47,7 @@ class IndexManager {
             User::class,
         ];
 
-        return array_filter($allEntities, function($className) {
+        return array_filter($allEntities, function ($className) {
             $obj = new $className();
 
             return $obj instanceof Searchable;

@@ -31,7 +31,7 @@ class CreateReadLogModel {
         return $this->book;
     }
 
-    public function setBook(string $book): CreateReadLogModel {
+    public function setBook(string $book): self {
         $this->book = $book;
 
         return $this;
@@ -41,7 +41,7 @@ class CreateReadLogModel {
         return $this->authors;
     }
 
-    public function setAuthors(array $authors): CreateReadLogModel {
+    public function setAuthors(array $authors): self {
         $this->authors = $authors;
 
         return $this;
@@ -51,7 +51,7 @@ class CreateReadLogModel {
         return $this->comment;
     }
 
-    public function setComment(string $comment): CreateReadLogModel {
+    public function setComment(string $comment): self {
         $this->comment = $comment;
 
         return $this;
@@ -61,7 +61,7 @@ class CreateReadLogModel {
         return $this->dateRead;
     }
 
-    public function setDateRead(\DateTime $dateRead = null): CreateReadLogModel {
+    public function setDateRead(\DateTime $dateRead = null): self {
         $this->dateRead = $dateRead;
 
         return $this;

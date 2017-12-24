@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Controller\ReadLog;
 
 use Bookshelf\Entity\Author;
@@ -12,7 +14,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class EditController extends Controller {
-
     public function handleAction(Request $request, ReadLogRepository $repo, int $id): Response {
         $log = $repo->findLog($id);
         if (!$log) {
@@ -32,9 +33,9 @@ class EditController extends Controller {
         return $this->render('readlog/create.html.twig', [
             'form' => $form->createView(),
             'authorIds' => implode(
-                ",",
+                ',',
                 array_map(
-                    function(Author $author) {
+                    function (Author $author) {
                         return $author->getId();
                     },
                     $log->getBook()->getAuthors()->getValues()

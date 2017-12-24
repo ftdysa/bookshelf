@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Form;
 
 class ChangePasswordModel {
     private $oldPassword;
     private $newPassword;
 
-    public function setNewPassword(string $newPassword): ChangePasswordModel {
+    public function setNewPassword(string $newPassword): self {
         $this->newPassword = $newPassword;
 
         return $this;
@@ -16,7 +18,7 @@ class ChangePasswordModel {
         return $this->newPassword;
     }
 
-    public function setOldPassword(string $oldPassword): ChangePasswordModel {
+    public function setOldPassword(string $oldPassword): self {
         $this->oldPassword = $oldPassword;
 
         return $this;

@@ -222,7 +222,9 @@ class ReadLog implements Searchable {
 
     public function getSearchableData(): array {
         $authors = array_map(
-            function(Author $author) { return $author->getName(); },
+            function (Author $author) {
+                return $author->getName();
+            },
             $this->book->getAuthors()->getValues()
         );
 
@@ -234,6 +236,4 @@ class ReadLog implements Searchable {
             'date_read' => $this->getDateRead()->format('Y-m-d'),
         ];
     }
-
-
 }

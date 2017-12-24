@@ -6,11 +6,15 @@ namespace Bookshelf\Repository;
 
 use Bookshelf\Entity\ReadLog;
 use Bookshelf\Entity\User;
+use Bookshelf\Repository\Traits\Paginate;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReadLogRepository extends ServiceEntityRepository {
+    use Paginate;
+
     /**
      * The current user.
      *
@@ -28,10 +32,7 @@ class ReadLogRepository extends ServiceEntityRepository {
         }
     }
 
-    /**
-     * @return array
-     */
-    public function findLogsForUser(): array {
+    public function findLogsForUser(int $page = 1): Pagerfanta {
         $qb = $this->createQueryBuilder('l')
             ->select(['l', 'b', 'a'])
             ->join('l.book', 'b')
@@ -39,7 +40,7 @@ class ReadLogRepository extends ServiceEntityRepository {
             ->where('l.user = :user')
             ->setParameter('user', $this->user);
 
-        return $qb->getQuery()->getResult();
+        return $this->createPager($qb->getQuery(), $page);
     }
 
     public function findLog(int $id): ?ReadLog {
@@ -59,6 +60,7 @@ class ReadLogRepository extends ServiceEntityRepository {
      * A terrible search function.
      *
      * @param $term
+     *
      * @return array
      */
     public function findLogsMatching($term): array {

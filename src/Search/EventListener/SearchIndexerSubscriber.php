@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Search\EventListener;
 
 use Bookshelf\Search\IndexManager;

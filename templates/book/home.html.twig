@@ -36,8 +36,6 @@
     </table>
 
     {% if books.haveToPaginate %}
-        <div class="navigation text-center">
-            {{ pagerfanta(books, 'twitter_bootstrap3_translated', {routeName: 'books_paginated'}) }}
-        </div>
+        {{ pagerfanta(books, 'bulma_template', {routeName: 'books_paginated'}) }}
     {% endif %}
 {% endblock %}

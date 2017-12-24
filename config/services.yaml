@@ -39,3 +39,13 @@ services:
     Bookshelf\Search\EventListener\SearchIndexerSubscriber:
         tags:
           - { name: doctrine.event_subscriber, connection: default }
+
+    bookshelf.template.bulma_template:
+        class: Bookshelf\Pagination\BulmaTemplate
+
+    pagerfanta.view.bulma_template:
+        class: Bookshelf\Pagination\BulmaView
+        public: false
+        arguments:
+            - "@bookshelf.template.bulma_template"
+        tags: [{ name: pagerfanta.view, alias: bulma_template }]

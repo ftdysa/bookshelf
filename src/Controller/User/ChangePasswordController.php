@@ -1,16 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Bookshelf\Controller\User;
 
 use Bookshelf\Form\ChangePasswordModel;
 use Bookshelf\Form\ChangePasswordType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 class ChangePasswordController extends Controller {
-
     public function handleAction(Request $request, EncoderFactoryInterface $factory) {
         $user = $this->getUser();
 
@@ -22,17 +22,17 @@ class ChangePasswordController extends Controller {
             $this->addFlash('success', 'Your password has been updated!');
 
             return $this->redirect($this->generateUrl('index'));
-        } else if ($form->isSubmitted() && !$form->isValid()) {
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash('danger', 'There was an problem with your submission!');
         }
 
         return $this->render('user/change_password.html.twig', [
             'form' => $form->createView(),
-            'user' => $user
+            'user' => $user,
         ]);
     }
 
-    private function updatePassword(EncoderFactory $factory, $newPassword) {
+    private function updatePassword(EncoderFactoryInterface $factory, $newPassword) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $encoder = $factory->getEncoder($user);
