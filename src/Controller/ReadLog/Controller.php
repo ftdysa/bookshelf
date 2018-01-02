@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bookshelf\Controller\ReadLog;
 
-use Bookshelf\Entity\Author;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller as ControllerBase;
